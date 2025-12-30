@@ -5,12 +5,10 @@ export const dynamic = 'force-dynamic'; // Ensure it always fetches fresh data
 export default async function InquiriesPage() {
     try {
         // 1. Fetch data from DB
-        /* Isolation Test: Temporarily disable DB fetch
+        // 1. Fetch data from DB
         const inquiries = await prisma.inquiry.findMany({
             orderBy: { createdAt: 'desc' }
         });
-        */
-        const inquiries: any[] = []; // Empty for now
 
         return (
             <div className="min-h-screen bg-white text-black p-8">
