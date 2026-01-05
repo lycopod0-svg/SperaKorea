@@ -16,9 +16,9 @@ export default function GalleryViewer() {
     const [activeMode, setActiveMode] = useState(MODES[0]);
 
     return (
-        <div className="w-full max-w-4xl mx-auto">
+        <div className="w-full max-w-5xl mx-auto bg-gray-800 rounded-3xl overflow-hidden shadow-2xl relative border border-gray-700">
             {/* Main Viewport */}
-            <div className="relative aspect-video bg-black rounded-2xl overflow-hidden border border-white/10 shadow-2xl mb-4 group">
+            <div className="relative aspect-[21/9] bg-gray-900 flex items-center justify-center overflow-hidden">
                 <Image
                     src={activeMode.src}
                     alt={activeMode.label}
@@ -26,34 +26,28 @@ export default function GalleryViewer() {
                     className="object-contain transition-opacity duration-500"
                     priority
                 />
-                {/* Overlay Label */}
-                <div className="absolute top-2 left-2 md:top-4 md:left-4 px-2 py-1 md:px-4 md:py-2 bg-black/70 backdrop-blur border border-white/20 rounded-lg text-white font-bold tracking-widest uppercase text-[8px] md:text-sm">
-                    {activeMode.label}
-                </div>
 
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+                {/* Overlay Label */}
+                <div className="absolute top-4 left-4 z-10 bg-black/50 backdrop-blur px-3 py-1 rounded text-xs font-mono text-white border border-white/20 uppercase tracking-widest">
+                    {activeMode.id.toUpperCase()} MODE
+                </div>
             </div>
 
             {/* Controls */}
-            <div className="grid grid-cols-3 md:grid-cols-6 gap-4">
+            <div className="bg-gray-900 p-4 border-t border-gray-800 flex justify-center gap-2 overflow-x-auto scrollbar-hide">
                 {MODES.map((mode) => (
                     <button
                         key={mode.id}
                         onClick={() => setActiveMode(mode)}
                         className={`
-                relative p-4 rounded-xl border transition-all overflow-hidden group
-                ${activeMode.id === mode.id
-                                ? "bg-white/10 border-safety-orange ring-1 ring-safety-orange"
-                                : "bg-black/40 border-white/10 hover:bg-white/5 hover:border-white/30"}
-            `}
+                            px-6 py-2.5 rounded font-display font-semibold transition-all whitespace-nowrap text-xs
+                            ${activeMode.id === mode.id
+                                ? "bg-primary text-white shadow-lg shadow-primary/20"
+                                : "bg-gray-800 text-gray-400 hover:bg-gray-700 hover:text-gray-200"
+                            }
+                        `}
                     >
-                        <div className={`text-xs font-bold uppercase tracking-wider mb-2 ${activeMode.id === mode.id ? "text-safety-orange" : "text-gray-400 group-hover:text-white"}`}>
-                            {mode.label}
-                        </div>
-                        {/* Active Indicator */}
-                        {activeMode.id === mode.id && (
-                            <div className="absolute bottom-0 left-0 w-full h-1 bg-safety-orange shadow-[0_0_10px_#FF5E0E]"></div>
-                        )}
+                        {mode.label.toUpperCase()}
                     </button>
                 ))}
             </div>
